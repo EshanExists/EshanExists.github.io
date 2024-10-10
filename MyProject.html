@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+
+	<style type="text/css">
+		
+		#hand{
+			width:200px;
+			height:300px;
+			background-image:url(drawingofHand.png);
+			background-size:contain;
+			background-repeat: no-repeat;
+		}
+
+		#notebook{
+			width:300px;
+			height:300px;
+			background-image:url(Notebook.png);
+			background-size:contain;
+			background-repeat: no-repeat;
+			position:relative;
+			top:550px;
+
+
+		}
+
+		#pen{
+/*			background-color:red;*/
+			width:200px;
+			height:200px;
+			background-image:url(pen.png);
+			background-size:contain;
+			background-repeat: no-repeat;
+		}
+
+		.things{
+			position:relative;
+			display:inline-block;
+			top:300px;
+
+		}
+
+			#background{
+				width:100%;
+				background-color:lightblue;
+				height:3000px;
+				top:0px;
+			}
+
+			body{
+				margin:0px;
+			}
+		
+	</style>
+		
+</head>
+<body>
+
+	<div id="background">
+<center>
+	
+		<div class="things" id="hand"></div>
+
+	<div class="things" id="pen"></div>
+
+		<div id="notebook"></div>
+
+
+</div>
+
+</center>
+
+<script type="text/javascript">
+
+	
+	
+	document.addEventListener("scroll", function(){
+		console.log(window.scrollY)
+
+
+
+		if (window.scrollY > 500){
+			notebook.style.transition="6.5s"
+			notebook.style.top = "1050px"
+		}
+
+		if (window.scrollY > 430){
+			hand.style.transition="2s"
+			hand.style.top = "5px"
+		}
+
+		if (window.scrollY > 450){
+			pen.style.transition="6s"
+			pen.style.top = "850px"
+		}
+	})
+</script>
+
+</body>
+</html>
