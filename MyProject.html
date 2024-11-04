@@ -22,7 +22,7 @@
 			background-size:contain;
 			background-repeat: no-repeat;
 			position:relative;
-			top:550px;
+			top:450px;
 
 
 		}
@@ -39,14 +39,14 @@
 		.things{
 			position:relative;
 			display:inline-block;
-			top:300px;
+			top:200px;
 
 		}
 
 			#background{
 				width:100%;
 				background-color:lightblue;
-				height:3000px;
+				height:1500px;
 				top:0px;
 			}
 
@@ -64,9 +64,13 @@
 	
 		<div class="things" id="hand"></div>
 
-	<div class="things" id="pen"></div>
-
+	<a href="projects.html">
+		<div class="things" id="pen"></div>
+	
+	
+	<a href="journal.html">
 		<div id="notebook"></div>
+		
 
 
 </div>
@@ -82,19 +86,19 @@
 
 
 
-		if (window.scrollY > 500){
-			notebook.style.transition="6.5s"
-			notebook.style.top = "1050px"
+		if (window.scrollY > 430){
+			notebook.style.transition="6s"
+			notebook.style.top = "900px"
 		}
 
 		if (window.scrollY > 430){
 			hand.style.transition="2s"
-			hand.style.top = "5px"
+			hand.style.top = "330px"
 		}
 
-		if (window.scrollY > 450){
+		if (window.scrollY > 430){
 			pen.style.transition="6s"
-			pen.style.top = "850px"
+			pen.style.top = "800px"
 		}
 	})
 </script>
