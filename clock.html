@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<style type="text/css">
+
+		
+		
+		.disco{
+			width:100px;
+			height:100px;
+			margin:1%;
+			display: inline-block;
+			background-image: url(https://images.squarespace-cdn.com/content/v1/61ddd00a3fc229292ca47350/1690306576453-TDETCJKYJQWJCYPT85P3/4542833B-CA74-4BFE-8253-29854412EADE?format=1500w);
+			background-size: contain;
+			font-size: 40px;
+
+		}
+	</style>
+	
+
+</head>
+<body>
+
+
+
+
+	<center> <h1> Disco Moreno! What's the time in Disco!</h1> </center>
+
+	<script type="text/javascript">
+		
+		let anything = 0;
+
+		function makeDisco(){
+			anything = anything + 1
+			let disco = document.createElement("div")
+			document.body.appendChild(disco)
+			disco.classList.add("disco")
+		}
+
+		setInterval(makeDisco,500)
+	</script>
+
+</body>
+</html>

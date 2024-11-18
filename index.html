@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<title></title>
 
 	<style type="text/css">
 		
 		#hand{
+			position: relative;
 			width:200px;
 			height:300px;
 			background-image:url(drawingofHand.png);
@@ -16,35 +16,30 @@
 		}
 
 		#notebook{
-			width:300px;
+			position: relative;
+			width:200px;
 			height:300px;
-			background-image:url(Notebook.png);
+			background-image:url(notebook.png);
 			background-size:contain;
 			background-repeat: no-repeat;
-			position:relative;
-<<<<<<< HEAD
 			top:450px;
-=======
-			top:550px;
->>>>>>> refs/remotes/origin/main
-
-
 		}
 
 		#pen{
-/*			background-color:red;*/
+			position: relative;
 			width:200px;
-			height:200px;
+			height:300px;
 			background-image:url(pen.png);
 			background-size:contain;
 			background-repeat: no-repeat;
 		}
 
+		
+
 		.things{
 			position:relative;
 			display:inline-block;
-
-			top:300px;
+			top:200px;
 
 		}
 
@@ -57,9 +52,6 @@
 				top:0px;
 			}
 
-			body{
-				margin:0px;
-			}
 		
 	</style>
 		
@@ -69,22 +61,19 @@
 	<div id="background">
 <center>
 	
-		<div class="things" id="hand"></div>
+	<div class="things" id="hand"></div>
 
 
 	<a href="projects.html">
 		<div class="things" id="pen"></div>
+	</a>
 	
 	
 	<a href="journal.html">
 		<div id="notebook"></div>
+
+	</a>
 		
-
-	<div class="things" id="pen"></div>
-
-		<div id="notebook"></div>
-
-
 </div>
 
 </center>
@@ -100,10 +89,6 @@
 		if (window.scrollY > 430){
 			notebook.style.transition="6s"
 			notebook.style.top = "900px"
-
-		if (window.scrollY > 500){
-			notebook.style.transition="6.5s"
-			notebook.style.top = "1050px"
 		}
 
 		if (window.scrollY > 430){
@@ -114,13 +99,9 @@
 		if (window.scrollY > 430){
 			pen.style.transition="6s"
 			pen.style.top = "800px"
-			hand.style.top = "5px"
+			
 		}
 
-		if (window.scrollY > 450){
-			pen.style.transition="6s"
-			pen.style.top = "850px"
-		}
 	})
 </script>
 
