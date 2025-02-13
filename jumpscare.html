@@ -5,17 +5,63 @@
 	<title></title>
 
 	<style type="text/css">
+
+		body{
+			margin:0;
+		}
 		#BlackBackground{
 			height: 3000px;
 			width: 100%;
 			background-color: black;
 		}
 
-		#Door1{
-			height:100px;
-			width: 30px;
-			top:30%;
-			background-image: url(Door.png);
+		#door1{
+			height:200px;
+			width: 110px;
+			top:20%;
+			left:200px;
+			backround-size:cover;
+			position:relative;
+			background-size: contain;
+			background-image: url(Newdoor.png);
+			display: inline-block;
+		}
+
+		#door2{
+			height:200px;
+			width: 110px;
+			top:20%;
+			left:500px;
+			backround-size:cover;
+			position:relative;
+			background-size: contain;
+			background-image: url(Newdoor.png);
+			display: inline-block;
+		}
+
+		#door3{
+			height:200px;
+			width: 110px;
+			top:20%;
+			left:800px;
+			backround-size:cover;
+			position:relative;
+			background-size: contain;
+			background-image: url(Newdoor.png);
+			display: inline-block;
+		}
+
+		#text{
+			height:200px;
+			width:500px;
+			top:5%;
+			background-size:cover;
+			position:relative;
+			background-size: contain;
+			display: inline-block;
+			color:red;
+			font-size: 100px;
+			opacity: 0;
 		}
 
 	
@@ -27,19 +73,50 @@
 
 </head>
 <body>
-	<div id="BlackBackground"></div>
 
-	<a href=" ">
 
-	<div id="Door1"></div>
-	<a>
+
+
+	<div id="BlackBackground">
+
+		<!-- <a href=" "> -->
+
+	<div id="door1"></div>
+
+	<div id="door2"></div>
+
+	<div id="door3"></div>
+
+	<center>
+		
+		<div id="text"> GO BACK / RELOAD </div>
+	</center>
+
+	</div>
+
+
+
+	
 
 	<script type="text/javascript">
-		background.addEventListener("click",
+		door1.addEventListener("click",
+			function (){door1.style.opacity = "0"
+					door2.style.opacity = "0"
+					door3.style.opacity = "0"
+					text.style.opacity ="1"
 
-			function Jumpscare1 (){
-			background.style.backgroundImage="url" 
-		}
+				}
+
+		)
+
+		door2.addEventListener("click",
+			function (){door1.style.opacity = "0"
+					door2.style.opacity = "0"
+					door3.style.opacity = "0"
+					text.style.opacity ="1"
+
+				}
+
 		)
 
 
