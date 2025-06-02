@@ -1,0 +1,68 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		
+		#square{
+			width:100px;
+			height:100px;
+			background-color:lightblue;
+			position: absolute;
+		}
+
+		#box{
+			width:100px;
+			height:100px;
+			background-color:grey;
+			position: absolute;
+			left:300px;
+			top:400px;
+			opacity:0.8;
+		}
+	</style>
+</head>
+<body>
+	<div id="square"></div>
+
+	<div id="box"></div>
+
+	<script type="text/javascript">
+
+
+//this is a function that allows the div with the id of square to move around the page. 
+		function drag(){
+				console.log(event.clientX, event.clientY)
+				square.style.left=event.clientX-50+"px"
+				square.style.top=event.clientY-50+"px"
+
+			}
+
+
+
+		
+		square.addEventListener("click", function(){
+			document.addEventListener("mousemove", drag)
+			let whatever = true;
+		})
+
+		box.addEventListener("click",function(){
+			console.log("working?")
+			box.appendChild(square)
+			document.removeEventListener("mousemove", drag)
+			box.style.backgroundColor="lightblue"
+			let whatever2 = true;
+
+			if(whatever2 && whatever2==true){
+
+				whatever = false
+				whatever2=false
+			}
+		
+
+		})
+	</script>
+
+</body>
+</html>

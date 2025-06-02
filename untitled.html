@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Simple Minecraft Crafting</title>
+<style>
+  body { font-family: sans-serif; display: flex; gap: 40px; padding: 20px; }
+  #ingredients, #crafting, #output { display: flex; flex-direction: column; gap: 10px; }
+  .ingredient, .slot {
+    width: 50px; height: 50px; border: 1px solid #444; display: flex;
+    justify-content: center; align-items: center; cursor: pointer; user-select: none;
+  }
+  #ingredients { flex-wrap: wrap; max-width: 200px; }
+  #ingredients .ingredient { margin: 5px; background: #eee; }
+  #crafting { display: grid; grid-template-columns: repeat(3, 50px); grid-template-rows: repeat(3, 50px); gap: 5px; }
+  #output { font-weight: bold; font-size: 1.2em; }
+  #cursorItem {
+    position: fixed; pointer-events: none; width: 50px; height: 50px;
+    display: flex; justify-content: center; align-items: center;
+    background: rgba(0,0,0,0.1); border: 1px solid #444; user-select: none;
+    font-size: 14px; color: #222;
+  }
+</style>
+</head>
+<body>
+
+<div id="ingredients">
+  <div class="ingredient" data-item="stick">Stick</div>
+  <div class="ingredient" data-item="plank">Plank</div>
+  <div class="ingredient" data-item="iron">Iron</div>
+  <div class="ingredient" data-item="diamond">Diamond</div>
+</div>
+
+<div id="crafting">
+  <div class="slot" data-item=""></div>
+  <div class="slot" data-item=""></div>
+  <div class="slot" data-item=""></div>
+  <div class="slot" data-item=""></div>
+  <div class="slot" data-item=""></div>
+  <div class="slot" data-item=""></div>
+  <div class="slot" data-item=""></div>
+  <div class="slot" data-item=""></div>
+  <div class="slot" data-item=""></div>
+</div>
+
+<div id="output">Output: None</div>
+
+<div id="cursorItem"></div>
+
+<script>
+  const ingredients = document.querySelectorAll('#ingredients .ingredient');
+  const slots = document.querySelectorAll('#crafting .slot');
+  const output = document.getElementById('output');
+  const cursorItem = document.getElementById('cursorItem');
+
+  // Recipes object: pattern string (9 slots, comma separated)
+  let recipes = {
+    "plank,plank,plank,,stick,,,stick,": "Wooden Pickaxe",
+    ",plank,,,plank,,,stick,": "Wooden Sword"
+  };
+
+  let heldItem = null;
+
+  // Move the fake cursor item with mouse
+  window.addEventListener('mousemove', e => {
+    if (heldItem) {
+      cursorItem.style.display = 'flex';
+      cursorItem.style.left = e.pageX + 5 + 'px';
+      cursorItem.style.top = e.pageY + 5 + 'px';
+      cursorItem.textContent = heldItem;
+    } else {
+      cursorItem.style.display = 'none';
+    }
+  });
+
+  // Click ingredient to pick up
+  ingredients.forEach(ing => {
+    ing.addEventListener('click', () => {
+      heldItem = ing.getAttribute('data-item');
+    });
+  });
+
+  // Click slot to place item
+  slots.forEach(slot => {
+    slot.addEventListener('click', () => {
+      if (heldItem) {
+        slot.setAttribute('data-item', heldItem);
+        slot.textContent = heldItem;
+        heldItem = null;
+        cursorItem.style.display = 'none';
+        checkRecipe();
+      } else {
+        // Pick up item from slot if empty hand
+        const slotItem = slot.getAttribute('data-item');
+        if (slotItem) {
+          heldItem = slotItem;
+          slot.setAttribute('data-item', '');
+          slot.textContent = '';
+          cursorItem.textContent = heldItem;
+          cursorItem.style.display = 'flex';
+          checkRecipe();
+        }
+      }
+    });
+  });
+
+  function checkRecipe() {
+    let patternArr = [];
+    slots.forEach(slot => {
+      patternArr.push(slot.getAttribute('data-item') || '');
+    });
+    const pattern = patternArr.join(',');
+    const result = recipes[pattern] || 'None';
+    output.textContent = 'Output: ' + result;
+  }
+
+  // Initialize slots text content empty
+  slots.forEach(s => s.textContent = '');
+</script>
+
+</body>
+</html>

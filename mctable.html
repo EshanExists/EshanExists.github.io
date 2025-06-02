@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Simple Minecraft Crafting Table</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+        <style>
+                body {
+                font-family: 'Press Start 2P';
+                }
+
+                .ingredient.plank{
+                        height: 100px;
+                        width:100px;
+                        background-image: url(woodplank.png);
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        display: inline-block;
+                }
+
+                .ingredient.stick{
+                        height: 100px;
+                        width:100px;
+                        background-image: url(stick.png);
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        display: inline-block;
+                }
+
+                .ingredient.iron{
+                        height: 100px;
+                        width:100px;
+                        background-image: url(iron.png);
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        display: inline-block;
+                }
+
+                .ingredient.diamond{
+                        height: 100px;
+                        width:100px;
+                        background-image: url(diamond.png);
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        display: inline-block;
+                }
+
+
+
+
+                
+                .crafting-table {
+                        display: inline-block;
+                        border: 2px solid black;
+                        padding: 10px;
+                }
+                .crafting-grid {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 15px;
+
+                }
+                .slot {
+                        width: 100px;
+                        height: 100px;
+                        background-color: lightgray;
+                        border: 1px solid gray;
+                        z-index: 2;
+                        opacity:0.8;
+                }
+
+                #stick{
+                        z-index: 1;
+                        width:100px;
+                        height:100px;
+                        background-image:url(stick.png);
+                        top: 100px;
+                        position: absolute;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+
+                }
+
+                #woodplank{
+                        z-index: 3;
+                        width:100px;
+                        height:100px;
+                        background-image:url(woodplank.png);
+                        top:210px;
+                        position: absolute;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                }
+
+                #output { font-weight: bold; font-size: 1.2em; }
+
+
+                #cursorItem {
+                  position: fixed; pointer-events: none; width: 50px; height: 50px;
+                  display: flex; justify-content: center; align-items: center;
+                  background: rgba(0,0,0,0.1); border: 1px solid #444; user-select: none;
+                  font-size: 14px; color: #222;
+                }
+                
+
+
+                
+
+
+                
+        </style>
+</head>
+<body>
+
+        <center>
+        <h1>Minecraft Crafting Table</h1> 
+        </center>
+        <p1>Ingredients/Materials</h1> 
+        <div id="ingredients">
+          <div class="ingredient stick" data-item="stick"></div>
+          <div class="ingredient plank" data-item="plank"></div>
+          <div class="ingredient iron" data-item="iron"></div>
+          <div class="ingredient diamond" data-item="diamond"></div>
+        </div>
+        
+
+        
+
+        
+        
+        <center>
+
+        
+
+        <div id="crafting">
+        <div class="crafting-table">
+        <div class="crafting-grid">
+        <div class="slot" data-item=''></div>
+        <div class="slot"data-item=''></div>
+        <div class="slot"data-item=''></div>
+        <div class="slot"data-item=''></div>
+        <div class="slot"data-item=''></div>
+        <div class="slot"data-item=''></div>
+        <div class="slot"data-item=''></div>
+        <div class="slot"data-item=''></div>
+        <div class="slot"data-item=''></div>
+
+        </div>
+
+
+                
+        </center>
+
+        
+        <div id="output">Output: None</div>
+
+        <div id="cursorItem"></div>
+
+        <script>
+          const ingredients = document.querySelectorAll('#ingredients .ingredient');
+          const slots = document.querySelectorAll('#crafting .slot');
+          const output = document.getElementById('output');
+          const cursorItem = document.getElementById('cursorItem');
+
+          // Recipes object: pattern string (9 slots, comma separated)
+          let recipes = {
+            "plank,plank,plank,,stick,,,stick,": "Wooden Pickaxe",
+            "iron,iron,iron,,stick,,,stick,": "Iron Pickaxe",
+            "diamond,diamond,diamond,,stick,,,stick,": "Diamond Pickaxe",
+            ",plank,,,plank,,,stick,": "Wooden Sword",
+            ",iron,,,iron,,,stick,": "Iron Sword",
+            ",diamond,,,diamond,,,stick,": "Diamond Sword",
+            "diamond,,diamond,diamond,diamond,diamond,diamond,diamond,diamond": "Diamond Chestplate",
+            "iron,,iron,iron,iron,iron,iron,iron,iron": "Iron Chestplate",
+            "diamond,diamond,diamond,diamond,,diamond,diamond,,diamond":"Diamond Leggings",
+            "diamond,diamond,diamond,diamond,,diamond,,,":"Diamond Helmet",
+            "diamond,,diamond,diamond,,diamond,,,": "Diamond Boots",
+            "iron,iron,iron,iron,,iron,,,":"Iron Helmet",
+            "iron,,iron,iron,,iron,,,": "Iron Boots"
+
+
+          };
+
+          let heldItem = null;
+
+          // Move the fake cursor item with mouse
+          window.addEventListener('mousemove', e => {
+            if (heldItem) {
+              cursorItem.style.display = 'flex';
+              cursorItem.style.left = e.pageX  + 'px';
+              cursorItem.style.top = e.pageY -100 + 'px';
+              cursorItem.textContent = heldItem;
+            } else {
+              cursorItem.style.display = 'none';
+            }
+          });
+
+          // Click ingredient to pick up
+          ingredients.forEach(ing => {
+            ing.addEventListener('click', () => {
+              heldItem = ing.getAttribute('data-item');
+            });
+          });
+
+          // Click slot to place item
+          slots.forEach(slot => {
+            slot.addEventListener('click', () => {
+              if (heldItem) {
+                slot.setAttribute('data-item', heldItem);
+                slot.textContent = heldItem;
+                heldItem = null;
+                cursorItem.style.display = 'none';
+                checkRecipe();
+              } else {
+                // Pick up item from slot if empty hand
+                const slotItem = slot.getAttribute('data-item');
+                if (slotItem) {
+                  heldItem = slotItem;
+                  slot.setAttribute('data-item', '');
+                  slot.textContent = '';
+                  cursorItem.textContent = heldItem;
+                  cursorItem.style.display = 'flex';
+                  checkRecipe();
+                }
+              }
+            });
+          });
+
+          function checkRecipe() {
+            let patternArr = [];
+            slots.forEach(slot => {
+              patternArr.push(slot.getAttribute('data-item') || '');
+            });
+            const pattern = patternArr.join(',');
+            const result = recipes[pattern] || 'None';
+            output.textContent = 'Output: ' + result;
+          }
+
+          // Initialize slots text content empty
+          slots.forEach(s => s.textContent = '');
+        </script>
+        
+</body>
+</html>
+
+        
+
+        
+       
+
+</body>
+</html>
